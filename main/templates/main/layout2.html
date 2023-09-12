@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <title>Studacco</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+    {% load static %}
+    <script src="{% static 'js/main.js' %}"></script>
+
+    {% load static %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}">
+</head>
+<body>
+    <section class="hero">
+        <div>
+            <span>
+                StudAcco
+            </span>
+            <span>
+                <a href="">Home</a>
+                <a href="">Search</a>
+                <a href="">My account</a>
+            </span>
+        </div>
+        <div>
+            <h1>Accommodations</h1>
+            <p>The home of accommodation</p>
+        </div>
+    </section>
+    <section class="explore">
+        <h2>Sponsored</h2>
+        {% for h in house %}
+            <div class="house-div">
+                <div style="background-image: url('{{MEDIA_URL}}{{h.image.url}}');" class="container-pic"></div>
+                <h4>{{h.location}}</h4>
+                <span style="color: blue;">From ${{h.price}}</span><br><br>
+                Agent: {{h.listed_by}}<br>
+                Rating: {{h.rating}}<br>
+            </div>
+        {% endfor %}
+    </section>
+    <script>
+        const hmenu = document.querySelector('.h-menu');
+        const amenu = document.querySelector('.a-menu');
+        const close = document.querySelector('.close')
+    
+        hmenu.addEventListener('click',()=>{
+            amenu.classList.add('open-nav')
+        })
+        close.addEventListener('click', () => {
+            amenu.classList.remove('open-nav')
+        })
+    </script>
+</body>
+</html>

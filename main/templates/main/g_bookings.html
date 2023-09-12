@@ -1,0 +1,14 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+
+<div style="padding: 1em;">
+    <h2>Granted Bookings</h2>
+    <a href="/bookings">Go to pending bookings</a><br><br>
+    {% for b in bookings %}
+        <div style="border: 1px grey solid; width: 80vw; padding: 1em;">
+            {{b.booker}}, {{b.house}} | Room : {{b.room}} | User contact : {{b.booker.phone_number}}  <a href="/revoke/{{b.id}}">Revoke</a>
+        </div><br>
+    {% endfor %}
+</div>
+
+{% endblock %}

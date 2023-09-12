@@ -1,0 +1,30 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+
+<h1>Edit House Details</h1>
+<div class="loginform">
+    <form action="" method="post" enctype="multipart/form-data">
+        <em>**only edit fields you wish to change</em>
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Done"><br>
+        <br>
+    </form>
+</div>
+<br>
+<h3>Add features and pictures</h3>
+<div style="padding: 1em;">
+    <a href="/add_features/{{house.id}}" class="btn">Add Features</a>  <a href="/add_pics/{{house.id}}" class="btn">Add Pictures</a>
+</div>
+<h3>Edit Rooms</h3>
+<div class="div-container">
+    {% for r in rooms %}
+        <div class="container" onclick="location.href='/room_details/{{r.id}}'" style="background: url('{{MEDIA_URL}}{{r.display_picture.url}}'); background-size: cover; background-repeat: no-repeat;">
+            <span>
+                {{r.room_name}}<br><br>
+                <a href="/edit_room/{{r.id}}" class="btn">Edit</a>
+            </span>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

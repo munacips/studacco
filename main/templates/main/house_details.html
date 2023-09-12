@@ -1,0 +1,58 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+
+<h1>House details</h1>
+
+<div class="div-container">
+    {% for pic in pics %}
+        <div class="container" onclick="location.href='{{MEDIA_URL}}{{pic.image.url}}'" style="background:  url('{{MEDIA_URL}}{{pic.image.url}}'); background-size: cover; background-repeat: no-repeat;"></div>
+    {% endfor %}
+</div>
+<br>
+<div style="padding: 1em;">
+    Gender : {{house.get_allowed_sex_display}}<br>
+    Location : {{house.location}}<br>
+    Address : {{house.house_address}}<br>
+    Rating : {{house.rating}}
+    {% for star in house.rating_iter %}
+        ⭐ 
+    {% endfor %}<br><br>
+    {% if request.user.is_aunthenticated %}
+        {% if not rated %}
+            <div class="loginform">
+                <form action="" method="post">
+                    <h3>Add rating</h3>
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <input type="submit" value="Done" class="btn">
+                </form>
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+<h2>Rooms Available</h2>
+<div class="div-container">
+    {% for r in rooms %}
+        <div class="container" onclick="location.href='/room_details/{{r.id}}'" style="background: url('{{MEDIA_URL}}{{r.display_picture.url}}'); background-size: cover; background-repeat: no-repeat;">
+            <span>
+                {{r.room_name}} ${{r.pricing}}<br>
+                {{r.number_of_beds}} beds for {{r.get_sex_display}}(s)
+            </span>
+        </div>
+    {% endfor %}
+</div>
+<h3>Features</h3>
+<div>
+    <ul>
+        {% for f in features %}
+            <li>{{f}}</li>
+        {% endfor %}
+    </ul>
+</div>
+<h3>Reviews</h3>
+{% for r in ratings %}
+    <div class="review">
+        <b>{{r.rater}}</b> Rating: <em>{{r.rating}}</em> | Review: <em>{{r.comment}}</em> <br><br>
+    </div>
+{% endfor %}
+{% endblock %}

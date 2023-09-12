@@ -1,0 +1,29 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+
+<h1>Room details</h1>
+{% if created %}
+    <em style="color: green;">Room booked for {{request.user}}.</em>
+{% endif %}
+{% if error_message %}
+    <em style="color: red;">{{error_message}}.</em>
+{% endif %}
+
+<div class="div-container">
+    {% for pic in pics %}
+        <div class="container" onclick="location.href='{{MEDIA_URL}}{{pic.image.url}}'" style="background:  url('{{MEDIA_URL}}{{pic.image.url}}'); background-size: cover; background-repeat: no-repeat;"></div>
+    {% endfor %}
+</div>
+<br>
+<div style="padding: 1em;">
+    Room : {{room.room_name}}<br>
+    Gender : {{room.get_sex_display}}<br>
+    Number of beds : {{room.number_of_beds}}<br>
+    Available beds : {{room.available_beds}}<br>
+    Price : ${{room.pricing}}
+</div>
+<div style="padding: 1em;">
+    <a href="/book_room/{{room.id}}" class="btn">Book Room</a>
+</div>
+
+{% endblock %}

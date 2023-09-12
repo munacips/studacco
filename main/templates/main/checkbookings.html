@@ -1,0 +1,13 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+
+<div style="padding: 1em;">
+    <h2>Your bookings</h2>
+    {% for b in bookings %}
+        <div style="border: 1px grey solid; width: 80vw; padding: 1em;">
+            {{b.house}}, {{b.room}} | Agent Contact : {{b.agent.phone_number}} | {% if b.revoked %} <em style="color: red;">Revoked</em> {% else %} {% if b.granted %} <em style="color: green;">Granted, you may proceed to pay</em> {% else %} <em style="color: red;">Pending</em> {% endif %} {% endif %}  <a href="/delete_booking/{{b.id}}">Delete</a>
+        </div><br>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+
+<h3>Account Details</h3>
+<div style="padding: 1em;">
+    username : <em>{{user.username}}</em><br>
+    First Name : <em>{{user.first_name}}</em><br>
+    Last Name : <em>{{user.last_name}}</em><br>
+    Email : <em>{{user.email}}</em><br>
+    {% if agent_account %} Agency name : <em>{{agent_account.agent_name}}</em><br>{% endif %}
+    Gender : <em>{{user_account.get_sex_display}}</em><br><br>
+    <a href="/edit_account" class="btn">Edit</a>  <a href="/logout" class="btn">Logout</a>   {% if my_bookings %}<a href="/check_bookings" class="btn">Check bookings({{my_bookings.count}})</a>{% endif %}
+</div>
+{% if agent_account %}
+    <span style="padding: 1em;"><a href="/bookings" class="btn">New Bookings({{bookings}})</a>  <a href="/add_house" class="btn">Add House</a></span><br><br>
+    <span style="padding: 1em;"><a href="" class="btn">Sponsor a house</a> {% if agent_account.verified %} {% else %}<a href="" class="btn">Request verification</a> {% endif %}</a></span>
+    <h3>Listed Houses</h3>
+    {% if houses %}
+        <div class="grid-container">
+            {% for s in houses %}
+                <div class="container" style="background:  url('{{MEDIA_URL}}{{s.display_picture.url}}'); background-size: cover; background-repeat: no-repeat;">
+                    <span>
+                        {{s.location}} {{s.price}}<br>
+                        {{s.rating}}<br><br>
+                        <a href="/edit_house/{{s.id}}" class="btn">Edit</a> <a onclick="if(window.confirm('Are you sure you want to delete this?')){location.href='/delete/{{s.id}}'}" class="btn">Delete</a><br><br><a href="/clear/{{s.id}}" class="btn">Clear house</a>
+                    </span>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <i>No listed houses yet.</i>
+    {% endif %}
+{% else %}
+    <div style="padding: 1em;">
+        <a href="/createagent" class="btn">Create an agent account</a>
+    </div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+<h1>Add rooms</h1>
+<div class="loginform">
+    <form action="" method="POST" enctype="multipart/form-data">
+        <b><em>Add Room</em></b>
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Add Room"><br>
+        <br>
+    </form>
+</div>
+
+<h3>Add rooms to your houses</h3>
+<div class="grid-container">
+    {% for s in houses %}
+        <div class="container" onclick="location.href='/add_rooms/{{s.id}}'" style="background:  url('{{MEDIA_URL}}{{s.display_picture.url}}'); background-size: cover; background-repeat: no-repeat;">
+            <span>
+                {{s.location}} {{s.price}}<br>
+                {{s.rating}}
+            </span>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

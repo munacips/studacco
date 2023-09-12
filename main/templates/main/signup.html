@@ -1,0 +1,18 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+<br>
+<div style="justify-content: center;display: flex; font-family: 'Castella';">
+    {% load static %}
+    <img src="{% static 'img/logo.png' %}" alt="">
+</div>
+<br><br>
+<div class="loginform">
+    <form action="" method="post">
+        <em>Signup Form</em>
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Signup">  <button onclick="location.href='/login'">login</button>
+    </form>
+</div>
+
+{% endblock %}

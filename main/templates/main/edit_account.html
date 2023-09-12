@@ -1,0 +1,14 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+<h1>Edit Account</h1>
+<div class="loginform">
+    <form action="" method="post">
+        <em>**only edit fields you wish to change</em>
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Done"><br>
+        <br>
+    </form>
+</div>
+
+{% endblock %}
